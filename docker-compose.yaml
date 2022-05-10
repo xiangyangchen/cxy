@@ -1,0 +1,33 @@
+version: '3.8'
+services: 
+   ubuntu:
+       build:
+          context:  src
+          dockerfile: Dockerfile
+       stdin_open: true
+       tty: true
+       ports:
+       - "8080:80"
+       - "127.0.0.1:8090:8001"
+     
+       volumes:
+       - /home/westwell/:/home/westwell
+       - /home/westwell/project/c/docker:/home/westwell/c
+       environment:
+       - RACK_ENV=development
+       - SESSION_SECRET
+       - server_ip = "10.159.0.1"
+       restart: always  
+       container_name: docker_1
+
+   centos: 
+        image: "redis"
+        stdin_open: true
+        tty: true
+        ports:
+        - "8081:80"
+        - "127.0.0.2:8091:8001"
+
+        restart: always
+        container_name: docker_2
+
